@@ -13,11 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 app.get('/note', (req, res) => {
-    res.json({
-        success: true,
-    });
+  const sql = "select * from note";
+  conn.query(sql, function (err, result) {
+    if(err) console.log(err);
+    else res.send(result);
+  })
 });
 
 app.listen(port, () => {
-    console.log(`server is listening at localhost:${port}`);
+  console.log(`server is listening at localhost:${port}`);
 });
